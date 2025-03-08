@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "proddaturiwebApp")
+@Document(collection = "proddatur10MinutesApp")
 public class User {
     @Id
     private Object id;
-    private long mobileno;
-    private String username;
+    private long mobileNumber;
+    private String userName;
 
 }

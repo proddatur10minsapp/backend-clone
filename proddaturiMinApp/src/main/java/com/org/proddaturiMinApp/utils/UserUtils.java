@@ -12,10 +12,10 @@ import java.util.List;
 public class UserUtils {
     @Autowired
     private UserRepository repository;
-    public String idIncrement(String userid){
+    public String idIncrement(String userId){
         List<User> user= repository.findAll();
         System.out.println("user details "+user);
-        String updatedId=userid;
+        String updatedId=userId;
         for (User details : user) {
             System.out.println("details in for loop"+details);
             if (details.getId().equals(updatedId)) {
