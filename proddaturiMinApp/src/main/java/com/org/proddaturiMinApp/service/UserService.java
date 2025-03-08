@@ -60,7 +60,7 @@ public class UserService {
             userData.setUserName(username);
             userRepository.save(userData);
         }
-        return "user data saved";
+        return username + "data saved";
     }
 
 }
