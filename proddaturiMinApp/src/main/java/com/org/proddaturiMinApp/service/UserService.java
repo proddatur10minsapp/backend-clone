@@ -1,5 +1,6 @@
 package com.org.proddaturiMinApp.service;
 
+import com.org.proddaturiMinApp.utils.CommonProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.org.proddaturiMinApp.model.User;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Optional;
+import java.util.Properties;
 
 @Service
 public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
-    private static final int OTP_EXPIRY_MINUTES = 5; // OTP valid for 5 minutes
+     // OTP valid for 5 minutes
     private static final SecureRandom random = new SecureRandom();
     static String otp = String.format("%06d", random.nextInt(1000000)); // Generate 6-digit OTP
     private static long userMobileNumber;
@@ -22,7 +24,9 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     private UserUtils userUtils;
-
+    @Autowired
+    CommonProperties properties;
+    private final int OTP_EXPIRY_MINUTES = properties.OtpExpireTime;
     // code for generate otp
     public String generateOtp(long mobileNumber) {
         userMobileNumber = mobileNumber;
@@ -60,7 +64,7 @@ public class UserService {
             userData.setUserName(username);
             userRepository.save(userData);
         }
-        return username + "data saved";
+        return username + properties.UserData;
     }
 
 }
