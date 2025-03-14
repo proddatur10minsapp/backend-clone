@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Document(collection = "proddatur10MinutesApp")
 public class User {
     @Id
-    private Object id;
+    private String id;
     private long mobileNumber;
     private String userName;
 

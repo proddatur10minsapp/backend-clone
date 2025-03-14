@@ -1,1 +1,2 @@
-contains repository interfaces
+Repository interface:
+    UserRepository Extends MongoRepository to perform the Crud operations.
