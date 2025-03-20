@@ -1,15 +1,14 @@
 package com.org.proddaturiMinApp.utils;
 
+import com.org.proddaturiMinApp.model.Product;
 import com.org.proddaturiMinApp.model.User;
+import com.org.proddaturiMinApp.repository.ProductRepository;
 import com.org.proddaturiMinApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-public class UserUtils {
+public class CommonUtils {
     @Autowired
     private UserRepository userRepository;
     public String generateUserId() {

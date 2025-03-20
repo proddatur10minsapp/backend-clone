@@ -10,4 +10,7 @@ public class CommonProperties {
     public static String successMessage = "Hello! Welcome ";
     public static String failedMessage = "Login Failed";
     public static int otpExpireTime = 5;  // OTP valid for 5 minutes
+    public static String productsNotFound = "products not found";
+    public static int range = 20;
+    public static String productNotFound = "Product not found";
 }

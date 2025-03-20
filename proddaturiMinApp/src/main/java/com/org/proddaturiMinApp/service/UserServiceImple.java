@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.org.proddaturiMinApp.model.User;
 import com.org.proddaturiMinApp.repository.UserRepository;
-import com.org.proddaturiMinApp.utils.UserUtils;
+import com.org.proddaturiMinApp.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class UserServiceImple implements UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    private UserUtils userUtils;
+    private CommonUtils commonutils;
 
     // code for generate otp
     public String generateOtp(long mobileNumber) {
@@ -42,7 +42,7 @@ public class UserServiceImple implements UserService {
 
     // code for validate otp and save user
     public Boolean validateOtpAndSaveUser(String userName, long mobileNumber, String otp) {
-        final String updatedId = userUtils.generateUserId();
+        final String updatedId = commonutils.generateUserId();
             if (validateOtp(mobileNumber, otp)) {
                 if (!userRepository.existsByMobileNumber(mobileNumber)) {
                     User newUser = new User(updatedId,mobileNumber,userName);
