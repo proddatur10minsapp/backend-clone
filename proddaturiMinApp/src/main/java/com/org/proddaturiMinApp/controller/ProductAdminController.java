@@ -1,7 +1,7 @@
 package com.org.proddaturiMinApp.controller;
 
 import com.org.proddaturiMinApp.model.Product;
-import com.org.proddaturiMinApp.repository.ProductRepository;
+import com.org.proddaturiMinApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,44 +11,30 @@ import java.util.List;
 @RequestMapping("/admin/products")
 public class ProductAdminController {
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @PostMapping("/add")
     public Product addProduct(@RequestBody Product product) {
-        return productRepository.save(product);
+        return productService.saveProduct(product);
     }
+
     @PostMapping("/addMultiple")
     public List<Product> addMultipleProducts(@RequestBody List<Product> products) {
-        return productRepository.saveAll(products);
+        return productService.saveAllProduct(products);
     }
 
     @GetMapping("/getAllProducts")
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productService.allProducts();
     }
 
     @PutMapping("/update/{id}")
     public Product updateProduct(@PathVariable String id, @RequestBody Product updatedProduct) {
-        String productName = updatedProduct.getProductName();
-        String productType = updatedProduct.getProductType();
-        String productDescription = updatedProduct.getProductDescription();
-        String productImage = updatedProduct.getProductImage();
-        double price = updatedProduct.getPrice();
-        int stock = updatedProduct.getStock();
-        return productRepository.findById(id).map(product -> {
-            if (productName != null) product.setProductName(productName);
-            if (productType != null) product.setProductType(productType);
-            if (productDescription != null) product.setProductDescription(productDescription);
-            if (productImage != null) product.setProductImage(productImage);
-            if (price != 0.0) product.setPrice(price);
-            if (stock != 0) product.setStock(stock);
-            return productRepository.save(product);
-        }).orElseThrow(() -> new RuntimeException("Product not found"));
+        return productService.updateProduct(id, updatedProduct);
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteProduct(@PathVariable String id) {
-        productRepository.deleteById(id);
-        return "Product deleted successfully";
+        return productService.deleteProductById(id);
     }
 }
