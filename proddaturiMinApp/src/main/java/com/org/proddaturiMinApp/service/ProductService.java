@@ -15,19 +15,19 @@ import java.util.Optional;
 
 
 @Service
-public class ProductService implements ProductServiceInterface{
+public class ProductService implements ProductServiceInterface {
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public List<Product> getFilteredProducts(String categoryName, int i) {
         List<Product> filteredProducts = new ArrayList<>();
         List<Product> allProducts = productRepository.findAll();
 
         int loopLimit = Math.min(CommonProperties.range, allProducts.size());
-        for (; i < loopLimit; i++) {
+        for (; i <= loopLimit; i++) {
             String productCategory = getCategoryNameById(allProducts.get(i).getCategory());
             if (productCategory.equals(categoryName)) filteredProducts.add(allProducts.get(i));
         }
@@ -83,12 +83,12 @@ public class ProductService implements ProductServiceInterface{
         return categoryRepository.findById(product.getCategory()).orElse(null);
     }
 
-    public String getCategoryNameById(String id) {
+    public String getCategoryNameById(String categoryId) {
         List<Category> allCategories = categoryRepository.findAll();
 
         for (Category category : allCategories) {
-            if (Objects.equals(category.getId(), id)) {
-                return category.getName();
+            if (Objects.equals(category.getName(), categoryId)) {
+                return category.getId();
             }
         }
         return null;
