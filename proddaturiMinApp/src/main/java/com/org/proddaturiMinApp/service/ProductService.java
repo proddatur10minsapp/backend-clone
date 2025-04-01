@@ -4,7 +4,7 @@ import com.org.proddaturiMinApp.model.Category;
 import com.org.proddaturiMinApp.model.Product;
 import com.org.proddaturiMinApp.repository.CategoryRepository;
 import com.org.proddaturiMinApp.repository.ProductRepository;
-import com.org.proddaturiMinApp.utils.CommonProperties;
+import com.org.proddaturiMinApp.utils.commonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +26,12 @@ public class ProductService implements ProductServiceInterface {
         List<Product> filteredProducts = new ArrayList<>();
         List<Product> allProducts = productRepository.findAll();
 
-        int loopLimit = Math.min(CommonProperties.range, allProducts.size());
-        for (; i <= loopLimit; i++) {
+        int loopLimit = Math.min(commonConstants.range, allProducts.size());
+            while(i <= loopLimit){
             String productCategory = getCategoryNameById(allProducts.get(i).getCategory());
             if (productCategory.equals(categoryName)) filteredProducts.add(allProducts.get(i));
+            i++;
         }
-
         return filteredProducts;
     }
 
@@ -71,12 +71,12 @@ public class ProductService implements ProductServiceInterface {
             if (price != 0.0) product.setPrice(price);
             if (stock != 0) product.setQuantity(stock);
             return productRepository.save(product);
-        }).orElseThrow(() -> new RuntimeException(CommonProperties.productNotFound + "with id" + id));
+        }).orElseThrow(() -> new RuntimeException(commonConstants.productNotFound + "with id" + id));
     }
 
     public String deleteProductById(String id) {
         productRepository.deleteById(id);
-        return CommonProperties.productDeleted;
+        return commonConstants.productDeleted;
     }
 
     public Category getCategory(Product product) {
@@ -91,7 +91,7 @@ public class ProductService implements ProductServiceInterface {
                 return category.getId();
             }
         }
-        return null;
+        return commonConstants.categoryNotFound+" with id "+categoryId;
     }
 
 }

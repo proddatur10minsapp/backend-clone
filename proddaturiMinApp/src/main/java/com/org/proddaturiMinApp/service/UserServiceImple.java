@@ -1,6 +1,6 @@
 package com.org.proddaturiMinApp.service;
 
-import com.org.proddaturiMinApp.utils.CommonProperties;
+import com.org.proddaturiMinApp.utils.commonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.org.proddaturiMinApp.model.User;
@@ -17,7 +17,7 @@ public class UserServiceImple implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImple.class);
     private static final SecureRandom random = new SecureRandom();
     public static String otp = String.format("%06d", random.nextInt(1000000)); // Generate 6-digit OTP
-    private final int OTP_EXPIRY_MINUTES = CommonProperties.otpExpireTime;
+    private final int OTP_EXPIRY_MINUTES = commonConstants.otpExpireTime;
     private static long userMobileNumber;
     @Autowired
     UserRepository userRepository;
