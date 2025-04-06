@@ -2,8 +2,7 @@ package com.org.proddaturiMinApp.controller;
 
 import com.org.proddaturiMinApp.model.User;
 import com.org.proddaturiMinApp.service.UserService;
-import com.org.proddaturiMinApp.service.UserServiceImple;
-import com.org.proddaturiMinApp.utils.CommonProperties;
+import com.org.proddaturiMinApp.utils.commonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,16 +27,16 @@ public class UserController {
         String username=user.getUserName();
         long mobileNumber=user.getMobileNumber();
         Boolean userResponse = userService.validateOtpAndSaveUser(username,mobileNumber,userOtp);
-        if (userResponse) return CommonProperties.successMessage+username;
-        else return CommonProperties.failedMessage;
+        if (userResponse) return commonConstants.successMessage+username;
+        else return commonConstants.failedMessage;
     }
 
     //Here update Username or MobileNumber based on Mobile Number
     @PutMapping("/updateUser")
     public String updateUserInfo(@RequestParam("mobileNumber") long mobileNumber,@RequestBody User user) {
         boolean userinfo = userService.updateUserData(mobileNumber,user);
-        if(userinfo) return CommonProperties.userUpdatedData;
-        else return CommonProperties.userInvalidData;
+        if(userinfo) return commonConstants.userUpdatedData;
+        else return commonConstants.userInvalidData;
     }
 
 }
