@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,4 +43,8 @@ public class CategoryService implements CategoryServiceInterface {
         categoryRepository.deleteById(id);
         return commonConstants.dataDeleted;
     }
+    public List<Category> allCategories() {
+        return categoryRepository.findAll();
+    }
+
 }
