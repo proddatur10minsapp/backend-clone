@@ -5,6 +5,7 @@ import com.org.proddaturiMinApp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -23,6 +24,11 @@ public class CategoryController {
     @GetMapping("/getCategoryByName/{categoryName}")
     public Optional<Category> getCategoryByName(@PathVariable String categoryName) {
         return categoryService.getCategoryByName(categoryName);
+    }
+
+    @GetMapping("/allCategory")
+    public List<Category> getAllCategories() {
+        return categoryService.allCategories();
     }
 
 

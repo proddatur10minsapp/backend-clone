@@ -26,12 +26,24 @@ public class ProductService implements ProductServiceInterface {
         List<Product> filteredProducts = new ArrayList<>();
         List<Product> allProducts = productRepository.findAll();
 
-        int loopLimit = Math.min(commonConstants.range, allProducts.size());
-            while(i <= loopLimit){
-            String productCategory = getCategoryNameById(allProducts.get(i).getCategory());
-            if (productCategory.equals(categoryName)) filteredProducts.add(allProducts.get(i));
+        if (i >= allProducts.size()) return filteredProducts;
+
+        int loopLimit = Math.min(i + commonConstants.range, allProducts.size());
+
+        while (i < loopLimit) {
+            Product product = allProducts.get(i);
+            if (product.getCategory() == null) {
+                i++;
+                continue; // skip if category is null
+            }
+
+            String productCategoryName = getCategoryNameById(product.getCategory());
+            if (productCategoryName.equalsIgnoreCase(categoryName)) {
+                filteredProducts.add(product);
+            }
             i++;
         }
+
         return filteredProducts;
     }
 
@@ -84,14 +96,11 @@ public class ProductService implements ProductServiceInterface {
     }
 
     public String getCategoryNameById(String categoryId) {
-        List<Category> allCategories = categoryRepository.findAll();
-
-        for (Category category : allCategories) {
-            if (Objects.equals(category.getName(), categoryId)) {
-                return category.getId();
-            }
-        }
-        return commonConstants.categoryNotFound+" with id "+categoryId;
+        return categoryRepository.findAll().stream()
+                .filter(category -> Objects.equals(category.getId(), categoryId))
+                .map(Category::getName)
+                .findFirst()
+                .orElse(commonConstants.categoryNotFound + " with id " + categoryId);
     }
 
 }
